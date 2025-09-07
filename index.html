@@ -3,31 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLE Scanner</title>
-    
-    <!-- PWA Meta Tags -->
-    <meta name="theme-color" content="#667eea">
-    <meta name="description" content="Scan and discover Bluetooth Low Energy devices">
-    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkJMRSBEZXZpY2UgU2Nhbm5lciIsCiAgInNob3J0X25hbWUiOiAiQkxFIFNjYW5uZXIiLAogICJkZXNjcmlwdGlvbiI6ICJTY2FuIGFuZCBkaXNjb3ZlciBCbHVldG9vdGggTG93IEVuZXJneSBkZXZpY2VzIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjNjY3ZWVhIiwKICAidGhlbWVfY29sb3IiOiAiIzY2N2VlYSIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXlOQ0F5TkNJZ1ptbHNiRDBpSXpZMk4yVmxZU0krUEdOcGNtTnNaU0JqZUQwaU1USWlJR041UFNJeE1pSWdjajBpTVRBaUlHWnBiR3c5SWlOblltZGpZVUVpTHo0OGNHRjBhQ0JrUFNKTk1pNDJJREUySURRdU55QXhOaTQxSURjdU5DQXhOeTQ0SURFeElEa3VPU0F4T0M0MUlERXdJREU1TGpBNUlERXdJREU1TGpjeUlERXdJREU0TGpZNElERTFJRGsxYVMwd0xqY3pJRGt1TlRKaU0yRk1hU0F4TlM0Mk9TQTVMVE11TlVFdFpqSTNZblJoSUd4V1lXUkJNRTAyZVRWdGIyOGlJR1pwYkd3OUluZG9hWFJsSWo0OEwzQmhkR2crUEM5emRtYysiCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXlOQ0F5TkNJZ1ptbHNiRDBpSXpZMk4yVmxZU0krUEdOcGNtTnNaU0JqZUQwaU1USWlJR041UFNJeE1pSWdjajBpTVRBaUlHWnBiR3c5SWlOblltZGpZVUVpTHo0OGNHRjBhQ0JrUFNKTk1pNDJJREUySURRdU55QXhOaTQxSURjdU5DQXhOeTQ0SURFeElEa3VPU0F4T0M0MUlERXdJREU1TGpBNUlERXdJREU1TGpjeUlERXdJREU0TGpZNElERTFJRGsxYVMwd0xqY3pJRGt1TlRKaU0yRk1hU0F4TlM0Mk9TQTVMVE11TlVFdFpqSTNZblJoSUd4V1lXUkJNRTAyZVRWdGIyOGlJR1pwYkd3OUluZG9hWFJsSWo0OEwzQmhkR2crUEM5emRtYzsiCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdLAogICJjYXRlZ29yaWVzIjogWyJ1dGlsaXRpZXMiLCAidG9vbHMiXQp9">
-    
-    <!-- Apple Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="BLE Scanner">
-    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiNnYmdjYUUiLz48cGF0aCBkPSJNMi42IDE2IDQuNyAxNi41IDcuNCAxNy44IDExIDkuOSAxOC41IDEwIDE5LjA5IDEwIDE5LjcyIDEwIDE4LjY4IDE1IDk1aS0wLjczIDkuNTJiM2FMaS0xNS42OSA5LTMuNUEtZjI3YnRhIGxWYWRBME02eTVtb28iIGZpbGw9IndoaXRlIj48L3BhdGg+PC9zdmc+">
-    
+    <title>BLE IMU Controller</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
+            margin: 0;
             padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
+            transition: background 0.3s ease;
+        }
+        
+        .alarm-active {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
         }
         
         .container {
+            max-width: 1000px;
+            margin: 0 auto;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             padding: 30px;
@@ -43,11 +37,24 @@
             font-weight: 300;
         }
         
-        .scan-button {
-            display: block;
-            width: 200px;
-            margin: 0 auto 30px;
+        .connection-panel {
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .connection-panel.connected {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .button {
+            display: inline-block;
             padding: 12px 24px;
+            margin: 10px;
             background: linear-gradient(45deg, #4299e1, #667eea);
             color: white;
             border: none;
@@ -59,20 +66,24 @@
             box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
         }
         
-        .scan-button:hover {
+        .button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
         }
         
-        .scan-button:active {
-            transform: translateY(0);
-        }
-        
-        .scan-button:disabled {
+        .button:disabled {
             background: #cbd5e0;
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+        }
+        
+        .button.success {
+            background: linear-gradient(45deg, #38a169, #2f855a);
+        }
+        
+        .button.danger {
+            background: linear-gradient(45deg, #e53e3e, #c53030);
         }
         
         .status {
@@ -80,92 +91,155 @@
             margin: 20px 0;
             font-weight: 500;
             color: #4a5568;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f7fafc;
         }
         
-        .devices-list {
+        .error { background: #fed7d7; color: #c53030; }
+        .success { background: #c6f6d5; color: #22543d; }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
             margin-top: 30px;
         }
         
-        .device {
+        .pitch-panel {
             background: white;
-            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .panel {
+            background: white;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 15px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
         }
         
-        .device:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        .device-name {
-            font-size: 1.2em;
-            font-weight: 600;
+        .panel h3 {
+            margin: 0 0 15px 0;
             color: #2d3748;
+            font-size: 1.1em;
+        }
+        
+        #pitchChart {
+            width: 100%;
+            height: 250px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #f8f9fa;
+            margin: 15px 0;
+        }
+        
+        .pitch-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2d3748;
+            text-align: center;
             margin-bottom: 10px;
         }
         
-        .device-id {
-            font-family: 'Courier New', monospace;
-            color: #718096;
-            font-size: 0.9em;
-            background: #f7fafc;
-            padding: 5px 10px;
+        .slider-container {
+            margin: 15px 0;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 8px;
             border-radius: 5px;
-            margin-bottom: 10px;
-            word-break: break-all;
+            background: #e2e8f0;
+            outline: none;
+            -webkit-appearance: none;
+            margin: 10px 0;
         }
         
-        .device-rssi {
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4299e1;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #4299e1;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .threshold-value {
+            font-size: 1.3em;
+            font-weight: bold;
             color: #4299e1;
-            font-weight: 500;
-            margin-bottom: 5px;
         }
         
-        .device-services {
-            margin-top: 10px;
+        .battery-display {
+            font-size: 2.5em;
+            margin: 10px 0;
         }
         
-        .service {
-            background: #edf2f7;
-            padding: 5px 8px;
-            border-radius: 5px;
-            margin: 2px;
-            display: inline-block;
-            font-size: 0.8em;
+        .battery-percent {
+            font-size: 0.5em;
             color: #4a5568;
+            display: block;
         }
         
-        .error {
+        .charging {
+            animation: flash 1s infinite;
+        }
+        
+        @keyframes flash {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+        
+        .alarm-indicator {
+            font-size: 1.5em;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            background: #e2e8f0;
+            color: #4a5568;
+            transition: all 0.3s ease;
+        }
+        
+        .alarm-indicator.active {
             background: #fed7d7;
             color: #c53030;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #feb2b2;
+            animation: pulse 1s infinite;
         }
         
-        .info {
-            background: #bee3f8;
-            color: #2b6cb0;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #90cdf4;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         .loading {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #4299e1;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #4299e1;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-right: 10px;
+            margin-right: 8px;
         }
         
         @keyframes spin {
@@ -173,377 +247,425 @@
             100% { transform: rotate(360deg); }
         }
         
-        .clear-button {
-            background: #e53e3e;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            margin-left: 10px;
-            transition: background 0.2s ease;
-        }
-        
-        .clear-button:hover {
-            background: #c53030;
-        }
-        
-        .install-prompt {
-            background: #c6f6d5;
-            color: #22543d;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border: 1px solid #9ae6b4;
-            display: none;
-        }
-        
-        .install-button {
-            background: #38a169;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        
-        .install-button:hover {
-            background: #2f855a;
-        }
-        
-        /* Mobile optimizations */
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
+        @media (max-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr;
             }
             
             .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .scan-button {
-                width: 100%;
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🔵 BLE Scanner</h1>
+        <h1>🔵 BLE IMU Controller</h1>
         
-        <div id="installPrompt" class="install-prompt">
-            📱 Install this app on your device for a better experience!
-            <button id="installButton" class="install-button">Install App</button>
+        <div class="connection-panel" id="connectionPanel">
+            <button id="connectButton" class="button">Connect to Device</button>
+            <button id="disconnectButton" class="button danger" disabled>Disconnect</button>
+            <div id="deviceName" style="margin-top: 10px; font-style: italic; color: #718096;"></div>
         </div>
         
-        <button id="scanButton" class="scan-button">
-            Start Scanning
-        </button>
+        <div id="status" class="status">
+            Click "Connect to Device" to start
+        </div>
         
-        <button id="clearButton" class="clear-button" onclick="clearDevices()">
-            Clear List
-        </button>
-        
-        <div id="status" class="status"></div>
-        
-        <div id="devicesList" class="devices-list"></div>
+        <div class="controls" id="controls" style="display: none;">
+            <!-- Pitch Chart -->
+            <div class="pitch-panel">
+                <h3>📊 Pitch Angle</h3>
+                <div class="pitch-value" id="pitchValue">0.0°</div>
+                <canvas id="pitchChart"></canvas>
+                <button id="calibrateButton" class="button success">🎯 Calibrate</button>
+            </div>
+            
+            <!-- Side Controls -->
+            <div class="side-panel">
+                <!-- Threshold -->
+                <div class="panel">
+                    <h3>⚠️ Threshold</h3>
+                    <div class="threshold-value" id="thresholdDisplay">15°</div>
+                    <div class="slider-container">
+                        <input type="range" id="thresholdSlider" class="slider" min="0" max="30" value="15">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9em; color: #718096;">
+                            <span>0°</span>
+                            <span>30°</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alarm -->
+                <div class="panel">
+                    <h3>🚨 Alarm</h3>
+                    <div class="alarm-indicator" id="alarmIndicator">Normal</div>
+                </div>
+                
+                <!-- Battery -->
+                <div class="panel">
+                    <h3>🔋 Battery</h3>
+                    <div class="battery-display" id="batteryDisplay">
+                        🔋
+                        <span class="battery-percent" id="batteryPercent">--</span>
+                    </div>
+                    <div id="chargingStatus">Unknown</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        let isScanning = false;
-        let discoveredDevices = new Map();
-        let deferredPrompt;
+        // BLE UUIDs (convert 4-digit to full format)
+        const toFullUUID = (short) => `0000${short}-0000-1000-8000-00805f9b34fb`;
         
-        const scanButton = document.getElementById('scanButton');
-        const statusDiv = document.getElementById('status');
-        const devicesList = document.getElementById('devicesList');
-        const installPrompt = document.getElementById('installPrompt');
-        const installButton = document.getElementById('installButton');
+        const IMU_SERVICE = toFullUUID('1101');
+        const PITCH_CHAR = toFullUUID('2101');
+        const CALIBRATE_CHAR = toFullUUID('2102');
+        const THRESHOLD_CHAR = toFullUUID('2103');
+        const ALARM_CHAR = toFullUUID('2104');
+        const BATTERY_SERVICE = toFullUUID('180f');
+        const BATTERY_LEVEL_CHAR = toFullUUID('2a19');
+        const CHARGING_CHAR = toFullUUID('2111');
         
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                const swCode = `
-                    const CACHE_NAME = 'ble-scanner-v1';
-                    const urlsToCache = ['/'];
-                    
-                    self.addEventListener('install', (event) => {
-                        event.waitUntil(
-                            caches.open(CACHE_NAME)
-                                .then((cache) => cache.addAll(urlsToCache))
-                        );
-                    });
-                    
-                    self.addEventListener('fetch', (event) => {
-                        event.respondWith(
-                            caches.match(event.request)
-                                .then((response) => {
-                                    return response || fetch(event.request);
-                                })
-                        );
-                    });
-                `;
-                
-                const blob = new Blob([swCode], { type: 'application/javascript' });
-                const swUrl = URL.createObjectURL(blob);
-                
-                navigator.serviceWorker.register(swUrl)
-                    .then((registration) => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch((registrationError) => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
+        // State
+        let device = null;
+        let characteristics = {};
+        let pitchData = [];
+        let chart = null;
+        let calibrationOffset = 0;
         
-        // Handle PWA install prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installPrompt.style.display = 'block';
-        });
+        // DOM elements
+        const elements = {
+            connect: document.getElementById('connectButton'),
+            disconnect: document.getElementById('disconnectButton'),
+            connectionPanel: document.getElementById('connectionPanel'),
+            deviceName: document.getElementById('deviceName'),
+            status: document.getElementById('status'),
+            controls: document.getElementById('controls'),
+            pitchValue: document.getElementById('pitchValue'),
+            pitchChart: document.getElementById('pitchChart'),
+            calibrate: document.getElementById('calibrateButton'),
+            thresholdSlider: document.getElementById('thresholdSlider'),
+            thresholdDisplay: document.getElementById('thresholdDisplay'),
+            alarmIndicator: document.getElementById('alarmIndicator'),
+            batteryDisplay: document.getElementById('batteryDisplay'),
+            batteryPercent: document.getElementById('batteryPercent'),
+            chargingStatus: document.getElementById('chargingStatus')
+        };
         
-        installButton.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                console.log(`User response to the install prompt: ${outcome}`);
-                deferredPrompt = null;
-                installPrompt.style.display = 'none';
-            }
-        });
-        
-        // Hide install prompt once app is installed
-        window.addEventListener('appinstalled', () => {
-            installPrompt.style.display = 'none';
-        });
-        
-        // Check if Web Bluetooth is supported
+        // Check Web Bluetooth support
         if (!navigator.bluetooth) {
-            statusDiv.innerHTML = '<div class="error">❌ Web Bluetooth API is not supported in this browser. On Android, use Chrome. On iOS, this feature is limited.</div>';
-            scanButton.disabled = true;
-        } else {
-            statusDiv.innerHTML = '<div class="info">✅ Web Bluetooth is supported. Click "Start Scanning" to discover BLE devices.</div>';
+            updateStatus('❌ Web Bluetooth not supported. Use Chrome or Edge.', 'error');
+            elements.connect.disabled = true;
         }
         
-        scanButton.addEventListener('click', toggleScanning);
+        // Event listeners
+        elements.connect.addEventListener('click', connectDevice);
+        elements.disconnect.addEventListener('click', disconnectDevice);
+        elements.calibrate.addEventListener('click', calibrateDevice);
+        elements.thresholdSlider.addEventListener('input', updateThresholdDisplay);
+        elements.thresholdSlider.addEventListener('change', writeThreshold);
         
-        async function toggleScanning() {
-            if (isScanning) {
-                stopScanning();
-            } else {
-                await startScanning();
+        // Initialize chart
+        function initChart() {
+            const canvas = elements.pitchChart;
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 250;
+            
+            chart = { canvas, ctx, width: canvas.width, height: canvas.height };
+            drawChart();
+        }
+        
+        function drawChart() {
+            if (!chart) return;
+            
+            const { ctx, width, height } = chart;
+            ctx.clearRect(0, 0, width, height);
+            
+            // Grid
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            
+            // Zero line (center)
+            ctx.beginPath();
+            ctx.moveTo(0, height/2);
+            ctx.lineTo(width, height/2);
+            ctx.stroke();
+            
+            // +/- 30 degree lines
+            const topY = height * 0.1;
+            const bottomY = height * 0.9;
+            
+            ctx.beginPath();
+            ctx.moveTo(0, topY);
+            ctx.lineTo(width, topY);
+            ctx.moveTo(0, bottomY);
+            ctx.lineTo(width, bottomY);
+            ctx.stroke();
+            
+            // Labels
+            ctx.fillStyle = '#4a5568';
+            ctx.font = '12px Arial';
+            ctx.fillText('+30°', 5, topY - 5);
+            ctx.fillText('0°', 5, height/2 - 5);
+            ctx.fillText('-30°', 5, bottomY + 15);
+            
+            // Plot data
+            if (pitchData.length > 1) {
+                ctx.strokeStyle = '#4299e1';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                
+                pitchData.forEach((pitch, i) => {
+                    const x = (width / Math.max(pitchData.length - 1, 1)) * i;
+                    // Map -30 to +30 degrees to chart height
+                    const y = height/2 - (pitch / 30) * (height * 0.4);
+                    
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                });
+                ctx.stroke();
+                
+                // Current value dot
+                if (pitchData.length > 0) {
+                    const lastPitch = pitchData[pitchData.length - 1];
+                    const x = width - 5;
+                    const y = height/2 - (lastPitch / 30) * (height * 0.4);
+                    
+                    ctx.fillStyle = '#e53e3e';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 4, 0, 2 * Math.PI);
+                    ctx.fill();
+                }
             }
         }
         
-        async function startScanning() {
+        async function connectDevice() {
             try {
-                isScanning = true;
-                scanButton.innerHTML = '<div class="loading"></div>Scanning...';
-                scanButton.disabled = true;
+                updateStatus('Scanning for devices...', 'info');
+                setConnectingState();
                 
-                statusDiv.innerHTML = '<div class="status">🔍 Scanning for BLE devices...</div>';
-                
-                // Request device with no filters to see all available devices
-                const device = await navigator.bluetooth.requestDevice({
-                    acceptAllDevices: true,
-                    optionalServices: [
-                        'battery_service',
-                        'device_information',
-                        'heart_rate',
-                        'cycling_speed_and_cadence',
-                        'running_speed_and_cadence',
-                        'fitness_machine',
-                        'environmental_sensing',
-                        'generic_access',
-                        'generic_attribute',
-                        '0000180f-0000-1000-8000-00805f9b34fb', // Battery Service UUID
-                        '0000180a-0000-1000-8000-00805f9b34fb'  // Device Information Service UUID
-                    ]
+                device = await navigator.bluetooth.requestDevice({
+                    filters: [{ services: [IMU_SERVICE] }],
+                    optionalServices: [BATTERY_SERVICE]
                 });
                 
-                await addDevice(device);
+                const server = await device.gatt.connect();
+                device.addEventListener('gattserverdisconnected', onDisconnected);
                 
-                // Try to get additional device info
-                if (device.gatt) {
-                    try {
-                        const server = await device.gatt.connect();
-                        let services = [];
-                        
-                        try {
-                            const primaryServices = await server.getPrimaryServices();
-                            services = primaryServices.map(service => {
-                                // Convert UUID to human-readable name when possible
-                                const uuid = service.uuid;
-                                const knownServices = {
-                                    '0000180f-0000-1000-8000-00805f9b34fb': 'Battery Service',
-                                    '0000180a-0000-1000-8000-00805f9b34fb': 'Device Information',
-                                    '0000180d-0000-1000-8000-00805f9b34fb': 'Heart Rate',
-                                    '00001800-0000-1000-8000-00805f9b34fb': 'Generic Access',
-                                    '00001801-0000-1000-8000-00805f9b34fb': 'Generic Attribute'
-                                };
-                                return knownServices[uuid] || uuid;
-                            });
-                        } catch (e) {
-                            console.log('Could not get services:', e);
-                        }
-                        
-                        updateDeviceServices(device.id, services);
-                        await server.disconnect();
-                    } catch (e) {
-                        console.log('Could not connect to device:', e);
-                    }
-                }
+                await setupCharacteristics(server);
+                setConnectedState();
+                updateStatus('Connected successfully!', 'success');
                 
-                statusDiv.innerHTML = '<div class="status">✅ Device added successfully. Click "Start Scanning" to scan for more devices.</div>';
+                // Read initial values
+                await readInitialValues();
                 
             } catch (error) {
-                console.error('Scanning error:', error);
-                if (error.name === 'NotFoundError') {
-                    statusDiv.innerHTML = '<div class="error">❌ No device was selected or scan was cancelled.</div>';
-                } else if (error.name === 'SecurityError') {
-                    statusDiv.innerHTML = '<div class="error">❌ Bluetooth access denied. Please grant permission and ensure location services are enabled.</div>';
-                } else if (error.name === 'NotSupportedError') {
-                    statusDiv.innerHTML = '<div class="error">❌ Web Bluetooth is not supported on this device/browser.</div>';
-                } else {
-                    statusDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                console.error('Connection failed:', error);
+                updateStatus(`Connection failed: ${error.message}`, 'error');
+                setDisconnectedState();
+            }
+        }
+        
+        async function setupCharacteristics(server) {
+            // IMU Service
+            const imuService = await server.getPrimaryService(IMU_SERVICE);
+            
+            characteristics.pitch = await imuService.getCharacteristic(PITCH_CHAR);
+            await characteristics.pitch.startNotifications();
+            characteristics.pitch.addEventListener('characteristicvaluechanged', handlePitch);
+            
+            characteristics.calibrate = await imuService.getCharacteristic(CALIBRATE_CHAR);
+            characteristics.threshold = await imuService.getCharacteristic(THRESHOLD_CHAR);
+            
+            characteristics.alarm = await imuService.getCharacteristic(ALARM_CHAR);
+            await characteristics.alarm.startNotifications();
+            characteristics.alarm.addEventListener('characteristicvaluechanged', handleAlarm);
+            
+            // Battery Service (optional)
+            try {
+                const batteryService = await server.getPrimaryService(BATTERY_SERVICE);
+                
+                characteristics.batteryLevel = await batteryService.getCharacteristic(BATTERY_LEVEL_CHAR);
+                await characteristics.batteryLevel.startNotifications();
+                characteristics.batteryLevel.addEventListener('characteristicvaluechanged', handleBatteryLevel);
+                
+                characteristics.charging = await batteryService.getCharacteristic(CHARGING_CHAR);
+                await characteristics.charging.startNotifications();
+                characteristics.charging.addEventListener('characteristicvaluechanged', handleCharging);
+                
+            } catch (e) {
+                console.log('Battery service not available');
+            }
+        }
+        
+        async function readInitialValues() {
+            try {
+                // Read threshold
+                const thresholdData = await characteristics.threshold.readValue();
+                const threshold = thresholdData.getFloat32(0, true);
+                elements.thresholdSlider.value = threshold;
+                updateThresholdDisplay();
+                
+                // Read battery if available
+                if (characteristics.batteryLevel) {
+                    const batteryData = await characteristics.batteryLevel.readValue();
+                    updateBatteryLevel(batteryData.getUint8(0));
                 }
+                
+                if (characteristics.charging) {
+                    const chargingData = await characteristics.charging.readValue();
+                    updateChargingStatus(chargingData.getUint8(0) > 0);
+                }
+                
+            } catch (error) {
+                console.log('Error reading initial values:', error);
+            }
+        }
+        
+        function handlePitch(event) {
+            const rawPitch = event.target.value.getFloat32(0, true);
+            const calibratedPitch = rawPitch - calibrationOffset;
+            
+            elements.pitchValue.textContent = calibratedPitch.toFixed(1) + '°';
+            
+            // Add to chart data (keep last 50 points)
+            pitchData.push(calibratedPitch);
+            if (pitchData.length > 50) pitchData.shift();
+            
+            drawChart();
+        }
+        
+        function handleAlarm(event) {
+            const alarmActive = event.target.value.getUint8(0) > 0;
+            
+            if (alarmActive) {
+                elements.alarmIndicator.textContent = 'ALARM!';
+                elements.alarmIndicator.classList.add('active');
+                document.body.classList.add('alarm-active');
+            } else {
+                elements.alarmIndicator.textContent = 'Normal';
+                elements.alarmIndicator.classList.remove('active');
+                document.body.classList.remove('alarm-active');
+            }
+        }
+        
+        function handleBatteryLevel(event) {
+            const level = event.target.value.getUint8(0);
+            updateBatteryLevel(level);
+        }
+        
+        function handleCharging(event) {
+            const isCharging = event.target.value.getUint8(0) > 0;
+            updateChargingStatus(isCharging);
+        }
+        
+        function updateBatteryLevel(level) {
+            elements.batteryPercent.textContent = level + '%';
+            
+            // Update icon based on level
+            let icon = '🔋';
+            if (level < 25) icon = '🪫';
+            
+            elements.batteryDisplay.innerHTML = `${icon}<span class="battery-percent">${level}%</span>`;
+        }
+        
+        function updateChargingStatus(isCharging) {
+            if (isCharging) {
+                elements.chargingStatus.textContent = 'Charging ⚡';
+                elements.batteryDisplay.classList.add('charging');
+            } else {
+                elements.chargingStatus.textContent = 'Not Charging';
+                elements.batteryDisplay.classList.remove('charging');
+            }
+        }
+        
+        async function calibrateDevice() {
+            try {
+                elements.calibrate.innerHTML = '<div class="loading"></div>Calibrating...';
+                elements.calibrate.disabled = true;
+                
+                // Get current pitch value for offset
+                const currentData = await characteristics.pitch.readValue();
+                calibrationOffset = currentData.getFloat32(0, true);
+                
+                // Send calibration command
+                const calibrateValue = new Uint8Array([1]);
+                await characteristics.calibrate.writeValue(calibrateValue);
+                
+                updateStatus('Calibrated - zero point set', 'success');
+                
+            } catch (error) {
+                console.error('Calibration failed:', error);
+                updateStatus(`Calibration failed: ${error.message}`, 'error');
             } finally {
-                stopScanning();
+                elements.calibrate.innerHTML = '🎯 Calibrate';
+                elements.calibrate.disabled = false;
             }
         }
         
-        function stopScanning() {
-            isScanning = false;
-            scanButton.innerHTML = 'Start Scanning';
-            scanButton.disabled = false;
+        function updateThresholdDisplay() {
+            elements.thresholdDisplay.textContent = elements.thresholdSlider.value + '°';
         }
         
-        async function addDevice(device) {
-            const deviceInfo = {
-                id: device.id,
-                name: device.name || 'Unknown Device',
-                device: device,
-                rssi: 'Unknown',
-                services: [],
-                lastSeen: new Date()
-            };
-            
-            // Listen for disconnect events
-            device.addEventListener('gattserverdisconnected', () => {
-                console.log(`Device ${device.name} disconnected`);
-            });
-            
-            discoveredDevices.set(device.id, deviceInfo);
-            updateDevicesList();
-        }
-        
-        function updateDeviceServices(deviceId, services) {
-            const deviceInfo = discoveredDevices.get(deviceId);
-            if (deviceInfo) {
-                deviceInfo.services = services;
-                updateDevicesList();
+        async function writeThreshold() {
+            try {
+                const threshold = parseFloat(elements.thresholdSlider.value);
+                const buffer = new ArrayBuffer(4);
+                new DataView(buffer).setFloat32(0, threshold, true);
+                await characteristics.threshold.writeValue(buffer);
+            } catch (error) {
+                console.error('Failed to write threshold:', error);
             }
         }
         
-        function updateDevicesList() {
-            devicesList.innerHTML = '';
-            
-            if (discoveredDevices.size === 0) {
-                devicesList.innerHTML = '<div class="info">No devices discovered yet. Click "Start Scanning" to begin discovering BLE devices.</div>';
-                return;
-            }
-            
-            discoveredDevices.forEach((deviceInfo) => {
-                const deviceDiv = document.createElement('div');
-                deviceDiv.className = 'device';
-                
-                const servicesHtml = deviceInfo.services.length > 0 
-                    ? `<div class="device-services">
-                         <strong>Services:</strong><br>
-                         ${deviceInfo.services.map(service => `<span class="service">${service}</span>`).join('')}
-                       </div>`
-                    : '';
-                
-                const connectButton = `<button onclick="connectToDevice('${deviceInfo.id}')" style="background: #4299e1; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px;">Connect</button>`;
-                
-                deviceDiv.innerHTML = `
-                    <div class="device-name">📱 ${deviceInfo.name}</div>
-                    <div class="device-id">ID: ${deviceInfo.id}</div>
-                    <div class="device-rssi">📶 Signal: ${deviceInfo.rssi}</div>
-                    <div style="color: #718096; font-size: 0.9em;">Found: ${deviceInfo.lastSeen.toLocaleTimeString()}</div>
-                    ${servicesHtml}
-                    ${connectButton}
-                `;
-                
-                devicesList.appendChild(deviceDiv);
-            });
+        function setConnectingState() {
+            elements.connect.innerHTML = '<div class="loading"></div>Connecting...';
+            elements.connect.disabled = true;
         }
         
-        async function connectToDevice(deviceId) {
-            const deviceInfo = discoveredDevices.get(deviceId);
-            if (deviceInfo && deviceInfo.device) {
-                try {
-                    statusDiv.innerHTML = `<div class="status">🔗 Connecting to ${deviceInfo.name}...</div>`;
-                    const server = await deviceInfo.device.gatt.connect();
-                    statusDiv.innerHTML = `<div class="status">✅ Connected to ${deviceInfo.name}!</div>`;
-                    
-                    // Get updated services after connection
-                    try {
-                        const services = await server.getPrimaryServices();
-                        const serviceNames = services.map(service => {
-                            const uuid = service.uuid;
-                            const knownServices = {
-                                '0000180f-0000-1000-8000-00805f9b34fb': 'Battery Service',
-                                '0000180a-0000-1000-8000-00805f9b34fb': 'Device Information',
-                                '0000180d-0000-1000-8000-00805f9b34fb': 'Heart Rate',
-                                '00001800-0000-1000-8000-00805f9b34fb': 'Generic Access',
-                                '00001801-0000-1000-8000-00805f9b34fb': 'Generic Attribute'
-                            };
-                            return knownServices[uuid] || uuid;
-                        });
-                        updateDeviceServices(deviceId, serviceNames);
-                    } catch (e) {
-                        console.log('Could not update services:', e);
-                    }
-                    
-                } catch (error) {
-                    statusDiv.innerHTML = `<div class="error">❌ Failed to connect to ${deviceInfo.name}: ${error.message}</div>`;
-                }
+        function setConnectedState() {
+            elements.connectionPanel.classList.add('connected');
+            elements.connect.disabled = true;
+            elements.disconnect.disabled = false;
+            elements.controls.style.display = 'grid';
+            elements.deviceName.textContent = `Connected: ${device.name || 'Unknown Device'}`;
+            setTimeout(initChart, 100);
+        }
+        
+        function setDisconnectedState() {
+            elements.connectionPanel.classList.remove('connected');
+            elements.connect.innerHTML = 'Connect to Device';
+            elements.connect.disabled = false;
+            elements.disconnect.disabled = true;
+            elements.controls.style.display = 'none';
+            elements.deviceName.textContent = '';
+            device = null;
+            characteristics = {};
+            pitchData = [];
+            calibrationOffset = 0;
+        }
+        
+        function onDisconnected() {
+            setDisconnectedState();
+            updateStatus('Device disconnected', 'error');
+        }
+        
+        async function disconnectDevice() {
+            if (device?.gatt.connected) {
+                device.gatt.disconnect();
             }
         }
         
-        function clearDevices() {
-            // Disconnect all connected devices
-            discoveredDevices.forEach((deviceInfo) => {
-                if (deviceInfo.device && deviceInfo.device.gatt && deviceInfo.device.gatt.connected) {
-                    deviceInfo.device.gatt.disconnect();
-                }
-            });
-            
-            discoveredDevices.clear();
-            updateDevicesList();
-            statusDiv.innerHTML = '<div class="info">✅ Device list cleared and all connections closed.</div>';
+        function updateStatus(message, type = 'info') {
+            elements.status.innerHTML = message;
+            elements.status.className = `status ${type}`;
         }
         
-        // Initialize the display
-        updateDevicesList();
-        
-        // Handle online/offline status
-        window.addEventListener('online', () => {
-            console.log('App is online');
-        });
-        
-        window.addEventListener('offline', () => {
-            console.log('App is offline');
-        });
+        // Initialize
+        updateThresholdDisplay();
     </script>
 </body>
 </html>
