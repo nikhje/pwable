@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLE Scanner</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Scan and discover Bluetooth Low Energy devices">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkJMRSBEZXZpY2UgU2Nhbm5lciIsCiAgInNob3J0X25hbWUiOiAiQkxFIFNjYW5uZXIiLAogICJkZXNjcmlwdGlvbiI6ICJTY2FuIGFuZCBkaXNjb3ZlciBCbHVldG9vdGggTG93IEVuZXJneSBkZXZpY2VzIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjNjY3ZWVhIiwKICAidGhlbWVfY29sb3IiOiAiIzY2N2VlYSIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0IiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXlOQ0F5TkNJZ1ptbHNiRDBpSXpZMk4yVmxZU0krUEdOcGNtTnNaU0JqZUQwaU1USWlJR041UFNJeE1pSWdjajBpTVRBaUlHWnBiR3c5SWlOblltZGpZVUVpTHo0OGNHRjBhQ0JrUFNKTk1pNDJJREUySURRdU55QXhOaTQxSURjdU5DQXhOeTQ0SURFeElEa3VPU0F4T0M0MUlERXdJREU1TGpBNUlERXdJREU1TGpjeUlERXdJREU0TGpZNElERTFJRGsxYVMwd0xqY3pJRGt1TlRKaU0yRk1hU0F4TlM0Mk9TQTVMVE11TlVFdFpqSTNZblJoSUd4V1lXUkJNRTAyZVRWdGIyOGlJR1pwYkd3OUluZG9hWFJsSWo0OEwzQmhkR2crUEM5emRtYysiCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sO2Jhc2U2NCxQSE4yWnlCNGJXeHVjejBpYUhSMGNEb3ZMM2QzZHk1M015NXZjbWN2TWpBd01DOXpkbWNpSUhacFpYZENiM2c5SWpBZ01DQXlOQ0F5TkNJZ1ptbHNiRDBpSXpZMk4yVmxZU0krUEdOcGNtTnNaU0JqZUQwaU1USWlJR041UFNJeE1pSWdjajBpTVRBaUlHWnBiR3c5SWlOblltZGpZVUVpTHo0OGNHRjBhQ0JrUFNKTk1pNDJJREUySURRdU55QXhOaTQxSURjdU5DQXhOeTQ0SURFeElEa3VPU0F4T0M0MUlERXdJREU1TGpBNUlERXdJREU1TGpjeUlERXdJREU0TGpZNElERTFJRGsxYVMwd0xqY3pJRGt1TlRKaU0yRk1hU0F4TlM0Mk9TQTVMVE11TlVFdFpqSTNZblJoSUd4V1lXUkJNRTAyZVRWdGIyOGlJR1pwYkd3OUluZG9hWFJsSWo0OEwzQmhkR2crUEM5emRtYzsiCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0KICBdLAogICJjYXRlZ29yaWVzIjogWyJ1dGlsaXRpZXMiLCAidG9vbHMiXQp9">
+    
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="BLE Scanner">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzY2N2VlYSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIGZpbGw9IiNnYmdjYUUiLz48cGF0aCBkPSJNMi42IDE2IDQuNyAxNi41IDcuNCAxNy44IDExIDkuOSAxOC41IDEwIDE5LjA5IDEwIDE5LjcyIDEwIDE4LjY4IDE1IDk1aS0wLjczIDkuNTJiM2FMaS0xNS42OSA5LTMuNUEtZjI3YnRhIGxWYWRBME02eTVtb28iIGZpbGw9IndoaXRlIj48L3BhdGg+PC9zdmc+">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .scan-button {
+            display: block;
+            width: 200px;
+            margin: 0 auto 30px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #4299e1, #667eea);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+        }
+        
+        .scan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4);
+        }
+        
+        .scan-button:active {
+            transform: translateY(0);
+        }
+        
+        .scan-button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .devices-list {
+            margin-top: 30px;
+        }
+        
+        .device {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .device:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .device-name {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .device-id {
+            font-family: 'Courier New', monospace;
+            color: #718096;
+            font-size: 0.9em;
+            background: #f7fafc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        
+        .device-rssi {
+            color: #4299e1;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .device-services {
+            margin-top: 10px;
+        }
+        
+        .service {
+            background: #edf2f7;
+            padding: 5px 8px;
+            border-radius: 5px;
+            margin: 2px;
+            display: inline-block;
+            font-size: 0.8em;
+            color: #4a5568;
+        }
+        
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #feb2b2;
+        }
+        
+        .info {
+            background: #bee3f8;
+            color: #2b6cb0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #90cdf4;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4299e1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .clear-button {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+            transition: background 0.2s ease;
+        }
+        
+        .clear-button:hover {
+            background: #c53030;
+        }
+        
+        .install-prompt {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #9ae6b4;
+            display: none;
+        }
+        
+        .install-button {
+            background: #38a169;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        .install-button:hover {
+            background: #2f855a;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .scan-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔵 BLE Scanner</h1>
+        
+        <div id="installPrompt" class="install-prompt">
+            📱 Install this app on your device for a better experience!
+            <button id="installButton" class="install-button">Install App</button>
+        </div>
+        
+        <button id="scanButton" class="scan-button">
+            Start Scanning
+        </button>
+        
+        <button id="clearButton" class="clear-button" onclick="clearDevices()">
+            Clear List
+        </button>
+        
+        <div id="status" class="status"></div>
+        
+        <div id="devicesList" class="devices-list"></div>
+    </div>
+
+    <script>
+        let isScanning = false;
+        let discoveredDevices = new Map();
+        let deferredPrompt;
+        
+        const scanButton = document.getElementById('scanButton');
+        const statusDiv = document.getElementById('status');
+        const devicesList = document.getElementById('devicesList');
+        const installPrompt = document.getElementById('installPrompt');
+        const installButton = document.getElementById('installButton');
+        
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    const CACHE_NAME = 'ble-scanner-v1';
+                    const urlsToCache = ['/'];
+                    
+                    self.addEventListener('install', (event) => {
+                        event.waitUntil(
+                            caches.open(CACHE_NAME)
+                                .then((cache) => cache.addAll(urlsToCache))
+                        );
+                    });
+                    
+                    self.addEventListener('fetch', (event) => {
+                        event.respondWith(
+                            caches.match(event.request)
+                                .then((response) => {
+                                    return response || fetch(event.request);
+                                })
+                        );
+                    });
+                `;
+                
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        // Handle PWA install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'block';
+        });
+        
+        installButton.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+        
+        // Hide install prompt once app is installed
+        window.addEventListener('appinstalled', () => {
+            installPrompt.style.display = 'none';
+        });
+        
+        // Check if Web Bluetooth is supported
+        if (!navigator.bluetooth) {
+            statusDiv.innerHTML = '<div class="error">❌ Web Bluetooth API is not supported in this browser. On Android, use Chrome. On iOS, this feature is limited.</div>';
+            scanButton.disabled = true;
+        } else {
+            statusDiv.innerHTML = '<div class="info">✅ Web Bluetooth is supported. Click "Start Scanning" to discover BLE devices.</div>';
+        }
+        
+        scanButton.addEventListener('click', toggleScanning);
+        
+        async function toggleScanning() {
+            if (isScanning) {
+                stopScanning();
+            } else {
+                await startScanning();
+            }
+        }
+        
+        async function startScanning() {
+            try {
+                isScanning = true;
+                scanButton.innerHTML = '<div class="loading"></div>Scanning...';
+                scanButton.disabled = true;
+                
+                statusDiv.innerHTML = '<div class="status">🔍 Scanning for BLE devices...</div>';
+                
+                // Request device with no filters to see all available devices
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: [
+                        'battery_service',
+                        'device_information',
+                        'heart_rate',
+                        'cycling_speed_and_cadence',
+                        'running_speed_and_cadence',
+                        'fitness_machine',
+                        'environmental_sensing',
+                        'generic_access',
+                        'generic_attribute',
+                        '0000180f-0000-1000-8000-00805f9b34fb', // Battery Service UUID
+                        '0000180a-0000-1000-8000-00805f9b34fb'  // Device Information Service UUID
+                    ]
+                });
+                
+                await addDevice(device);
+                
+                // Try to get additional device info
+                if (device.gatt) {
+                    try {
+                        const server = await device.gatt.connect();
+                        let services = [];
+                        
+                        try {
+                            const primaryServices = await server.getPrimaryServices();
+                            services = primaryServices.map(service => {
+                                // Convert UUID to human-readable name when possible
+                                const uuid = service.uuid;
+                                const knownServices = {
+                                    '0000180f-0000-1000-8000-00805f9b34fb': 'Battery Service',
+                                    '0000180a-0000-1000-8000-00805f9b34fb': 'Device Information',
+                                    '0000180d-0000-1000-8000-00805f9b34fb': 'Heart Rate',
+                                    '00001800-0000-1000-8000-00805f9b34fb': 'Generic Access',
+                                    '00001801-0000-1000-8000-00805f9b34fb': 'Generic Attribute'
+                                };
+                                return knownServices[uuid] || uuid;
+                            });
+                        } catch (e) {
+                            console.log('Could not get services:', e);
+                        }
+                        
+                        updateDeviceServices(device.id, services);
+                        await server.disconnect();
+                    } catch (e) {
+                        console.log('Could not connect to device:', e);
+                    }
+                }
+                
+                statusDiv.innerHTML = '<div class="status">✅ Device added successfully. Click "Start Scanning" to scan for more devices.</div>';
+                
+            } catch (error) {
+                console.error('Scanning error:', error);
+                if (error.name === 'NotFoundError') {
+                    statusDiv.innerHTML = '<div class="error">❌ No device was selected or scan was cancelled.</div>';
+                } else if (error.name === 'SecurityError') {
+                    statusDiv.innerHTML = '<div class="error">❌ Bluetooth access denied. Please grant permission and ensure location services are enabled.</div>';
+                } else if (error.name === 'NotSupportedError') {
+                    statusDiv.innerHTML = '<div class="error">❌ Web Bluetooth is not supported on this device/browser.</div>';
+                } else {
+                    statusDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+                }
+            } finally {
+                stopScanning();
+            }
+        }
+        
+        function stopScanning() {
+            isScanning = false;
+            scanButton.innerHTML = 'Start Scanning';
+            scanButton.disabled = false;
+        }
+        
+        async function addDevice(device) {
+            const deviceInfo = {
+                id: device.id,
+                name: device.name || 'Unknown Device',
+                device: device,
+                rssi: 'Unknown',
+                services: [],
+                lastSeen: new Date()
+            };
+            
+            // Listen for disconnect events
+            device.addEventListener('gattserverdisconnected', () => {
+                console.log(`Device ${device.name} disconnected`);
+            });
+            
+            discoveredDevices.set(device.id, deviceInfo);
+            updateDevicesList();
+        }
+        
+        function updateDeviceServices(deviceId, services) {
+            const deviceInfo = discoveredDevices.get(deviceId);
+            if (deviceInfo) {
+                deviceInfo.services = services;
+                updateDevicesList();
+            }
+        }
+        
+        function updateDevicesList() {
+            devicesList.innerHTML = '';
+            
+            if (discoveredDevices.size === 0) {
+                devicesList.innerHTML = '<div class="info">No devices discovered yet. Click "Start Scanning" to begin discovering BLE devices.</div>';
+                return;
+            }
+            
+            discoveredDevices.forEach((deviceInfo) => {
+                const deviceDiv = document.createElement('div');
+                deviceDiv.className = 'device';
+                
+                const servicesHtml = deviceInfo.services.length > 0 
+                    ? `<div class="device-services">
+                         <strong>Services:</strong><br>
+                         ${deviceInfo.services.map(service => `<span class="service">${service}</span>`).join('')}
+                       </div>`
+                    : '';
+                
+                const connectButton = `<button onclick="connectToDevice('${deviceInfo.id}')" style="background: #4299e1; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-top: 10px;">Connect</button>`;
+                
+                deviceDiv.innerHTML = `
+                    <div class="device-name">📱 ${deviceInfo.name}</div>
+                    <div class="device-id">ID: ${deviceInfo.id}</div>
+                    <div class="device-rssi">📶 Signal: ${deviceInfo.rssi}</div>
+                    <div style="color: #718096; font-size: 0.9em;">Found: ${deviceInfo.lastSeen.toLocaleTimeString()}</div>
+                    ${servicesHtml}
+                    ${connectButton}
+                `;
+                
+                devicesList.appendChild(deviceDiv);
+            });
+        }
+        
+        async function connectToDevice(deviceId) {
+            const deviceInfo = discoveredDevices.get(deviceId);
+            if (deviceInfo && deviceInfo.device) {
+                try {
+                    statusDiv.innerHTML = `<div class="status">🔗 Connecting to ${deviceInfo.name}...</div>`;
+                    const server = await deviceInfo.device.gatt.connect();
+                    statusDiv.innerHTML = `<div class="status">✅ Connected to ${deviceInfo.name}!</div>`;
+                    
+                    // Get updated services after connection
+                    try {
+                        const services = await server.getPrimaryServices();
+                        const serviceNames = services.map(service => {
+                            const uuid = service.uuid;
+                            const knownServices = {
+                                '0000180f-0000-1000-8000-00805f9b34fb': 'Battery Service',
+                                '0000180a-0000-1000-8000-00805f9b34fb': 'Device Information',
+                                '0000180d-0000-1000-8000-00805f9b34fb': 'Heart Rate',
+                                '00001800-0000-1000-8000-00805f9b34fb': 'Generic Access',
+                                '00001801-0000-1000-8000-00805f9b34fb': 'Generic Attribute'
+                            };
+                            return knownServices[uuid] || uuid;
+                        });
+                        updateDeviceServices(deviceId, serviceNames);
+                    } catch (e) {
+                        console.log('Could not update services:', e);
+                    }
+                    
+                } catch (error) {
+                    statusDiv.innerHTML = `<div class="error">❌ Failed to connect to ${deviceInfo.name}: ${error.message}</div>`;
+                }
+            }
+        }
+        
+        function clearDevices() {
+            // Disconnect all connected devices
+            discoveredDevices.forEach((deviceInfo) => {
+                if (deviceInfo.device && deviceInfo.device.gatt && deviceInfo.device.gatt.connected) {
+                    deviceInfo.device.gatt.disconnect();
+                }
+            });
+            
+            discoveredDevices.clear();
+            updateDevicesList();
+            statusDiv.innerHTML = '<div class="info">✅ Device list cleared and all connections closed.</div>';
+        }
+        
+        // Initialize the display
+        updateDevicesList();
+        
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            console.log('App is online');
+        });
+        
+        window.addEventListener('offline', () => {
+            console.log('App is offline');
+        });
+    </script>
+</body>
+</html>
